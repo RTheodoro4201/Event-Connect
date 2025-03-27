@@ -24,13 +24,15 @@ CREATE TABLE events (
     community_id BIGINT UNSIGNED NOT NULL,
     title VARCHAR(255) NOT NULL,
     description TEXT,
+    organizer_id BIGINT UNSIGNED NOT NULL,
     date DATE NOT NULL,
     time TIME NOT NULL,
     location VARCHAR(255),
     max_participants INT UNSIGNED,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    FOREIGN KEY (community_id) REFERENCES communities(id)
+    FOREIGN KEY (community_id) REFERENCES communities(id),
+    FOREIGN KEY (organizer_id) REFERENCES users(id)
 );
 
 -- Tabela de relacionamento entre usuários e comunidades (membros)

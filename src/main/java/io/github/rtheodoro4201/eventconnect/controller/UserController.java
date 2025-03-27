@@ -1,8 +1,8 @@
 package io.github.rtheodoro4201.eventconnect.controller;
 
-import io.github.rtheodoro4201.eventconnect.dto.UserLoginDTO;
-import io.github.rtheodoro4201.eventconnect.dto.UserRegistrationDTO;
-import io.github.rtheodoro4201.eventconnect.dto.UserUpdateDTO;
+import io.github.rtheodoro4201.eventconnect.dto.user.UserLoginDTO;
+import io.github.rtheodoro4201.eventconnect.dto.user.UserRegistrationDTO;
+import io.github.rtheodoro4201.eventconnect.dto.user.UserUpdateDTO;
 import io.github.rtheodoro4201.eventconnect.model.User;
 import io.github.rtheodoro4201.eventconnect.service.UserService;
 import org.apache.kafka.common.errors.ResourceNotFoundException;

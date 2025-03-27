@@ -1,4 +1,4 @@
-package io.github.rtheodoro4201.eventconnect.dto;
+package io.github.rtheodoro4201.eventconnect.dto.user;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Size;

@@ -1,4 +1,4 @@
-POST http://localhost:8080/api/users/register
+POST http://26.151.53.229:8080/api/users/register
 Content-Type: application/json
 
 {

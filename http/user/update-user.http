@@ -1,4 +1,7 @@
-POST http://localhost:8080/api/users/update
-Content-Type: application/x-www-form-urlencoded
+POST http://26.151.53.229:8080/api/users/update
+Content-Type: application/json
 
-email=teste@example.com&password=senha123
+{
+  "email": "teste@example.com",
+  "password": "senha123"
+}

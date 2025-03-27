@@ -1,1 +1,1 @@
-DELETE http://localhost:8080/api/users/delete/1
+DELETE http://26.151.53.229:8080/api/users/delete/1

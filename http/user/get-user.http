@@ -1,1 +1,1 @@
-GET http://localhost:8080/api/users/get/2
+GET http://26.151.53.229:8080/api/users/get/2

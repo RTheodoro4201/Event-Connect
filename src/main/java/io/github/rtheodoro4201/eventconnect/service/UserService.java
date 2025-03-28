@@ -49,16 +49,16 @@ public class UserService {
     public Optional<User> updateUser(Long userId, String newName, String newEmail, String newPassword)
     {
         return userRepository.findById(userId)
-                .map(user -> {
+                .map(updatedUser -> {
                     Optional.ofNullable(newName)
                             .filter(name -> !name.isEmpty())
-                            .ifPresent(user::setName);
+                            .ifPresent(updatedUser::setName);
 
                     Optional.ofNullable(newEmail)
-                            .filter(email -> !email.isEmpty() && !user.getEmail().equals(email))
+                            .filter(email -> !email.isEmpty() && !updatedUser.getEmail().equals(email))
                             .ifPresent(email -> {
                                 if (userRepository.findByEmail(email).isEmpty()) {
-                                    user.setEmail(email);
+                                    updatedUser.setEmail(email);
                                 } else {
                                     throw new EmailAlreadyExistsException("Email já cadastrado.");
                                 }
@@ -66,9 +66,9 @@ public class UserService {
 
                     Optional.ofNullable(newPassword)
                             .filter(password -> !password.isEmpty())
-                            .ifPresent(password -> user.setPassword(passwordEncoder.encode(password)));
+                            .ifPresent(password -> updatedUser.setPassword(passwordEncoder.encode(password)));
 
-                    return userRepository.save(user);
+                    return userRepository.save(updatedUser);
                 });
     }
 

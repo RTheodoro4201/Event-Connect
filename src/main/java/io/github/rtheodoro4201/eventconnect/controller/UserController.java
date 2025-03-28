@@ -32,9 +32,9 @@ public class UserController {
     public ResponseEntity<String> login(@RequestBody UserLoginDTO userLoginDTO) {
         Optional<User> userOptional = userService.loginUser(userLoginDTO.getEmail(), userLoginDTO.getPassword());
         if (userOptional.isPresent()) {
-            return ResponseEntity.ok("Login realizado com sucesso");
+            return ResponseEntity.ok("Successful login");
         } else {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Credenciais inválidas.");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials.");
         }
     }
 
@@ -58,6 +58,6 @@ public class UserController {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
 
-        throw new ResourceNotFoundException("Usuário de ID " + userId + " não encontrado.");
+        throw new ResourceNotFoundException("User " + userId + " not found.");
     }
 }

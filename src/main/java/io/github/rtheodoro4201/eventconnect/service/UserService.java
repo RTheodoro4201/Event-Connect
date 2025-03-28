@@ -3,8 +3,10 @@ package io.github.rtheodoro4201.eventconnect.service;
 import io.github.rtheodoro4201.eventconnect.exception.EmailAlreadyExistsException;
 import io.github.rtheodoro4201.eventconnect.model.User;
 import io.github.rtheodoro4201.eventconnect.repository.UserRepository;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Optional;
 
@@ -13,7 +15,7 @@ public class UserService {
 
     private final UserRepository userRepository;
 
-    private final PasswordEncoder passwordEncoder; // Para criptografar a senha
+    private final PasswordEncoder passwordEncoder;
 
     public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
@@ -22,12 +24,12 @@ public class UserService {
 
     public User registerUser(String name, String email, String password) {
         if (userRepository.existsByEmail(email)) {
-            throw new EmailAlreadyExistsException("Email já cadastrado."); // Crie sua própria exceção
+            throw new EmailAlreadyExistsException("Email already registered.");
         }
         User newUser = new User();
         newUser.setName(name);
         newUser.setEmail(email);
-        newUser.setPassword(passwordEncoder.encode(password)); // Criptografar a senha antes de salvar
+        newUser.setPassword(passwordEncoder.encode(password));
         return userRepository.save(newUser);
     }
 
@@ -46,8 +48,7 @@ public class UserService {
         return userRepository.findById(userId);
     }
 
-    public Optional<User> updateUser(Long userId, String newName, String newEmail, String newPassword)
-    {
+    public Optional<User> updateUser(Long userId, String newName, String newEmail, String newPassword) {
         return userRepository.findById(userId)
                 .map(updatedUser -> {
                     Optional.ofNullable(newName)
@@ -60,7 +61,7 @@ public class UserService {
                                 if (userRepository.findByEmail(email).isEmpty()) {
                                     updatedUser.setEmail(email);
                                 } else {
-                                    throw new EmailAlreadyExistsException("Email já cadastrado.");
+                                    throw new EmailAlreadyExistsException("Email already registered.");
                                 }
                             });
 
@@ -72,15 +73,18 @@ public class UserService {
                 });
     }
 
-    public boolean deleteUser(Long userId)
-    {
-        if(!userRepository.existsById(userId))
-        {
-            return false;
+    private void checkUser(Long userId) {
+        Optional<User> userOptional = userRepository.findById(userId);
+
+        if (userOptional.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found.");
         }
+    }
+
+    public boolean deleteUser(Long userId) {
+        checkUser(userId);
 
         userRepository.deleteById(userId);
         return true;
     }
-    // Outros métodos de serviço relacionados a usuários
 }

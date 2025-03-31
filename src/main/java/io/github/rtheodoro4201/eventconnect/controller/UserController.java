@@ -5,7 +5,6 @@ import io.github.rtheodoro4201.eventconnect.dto.user.UserRegistrationDTO;
 import io.github.rtheodoro4201.eventconnect.dto.user.UserUpdateDTO;
 import io.github.rtheodoro4201.eventconnect.model.User;
 import io.github.rtheodoro4201.eventconnect.service.UserService;
-import org.apache.kafka.common.errors.ResourceNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -53,11 +52,7 @@ public class UserController {
     @DeleteMapping("/delete/{userId}")
     public ResponseEntity<Void> deleteUser(@PathVariable Long userId)
     {
-        if(userService.deleteUser(userId))
-        {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        }
-
-        throw new ResourceNotFoundException("User " + userId + " not found.");
+        userService.deleteUser(userId);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

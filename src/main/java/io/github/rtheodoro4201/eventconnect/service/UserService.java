@@ -1,8 +1,10 @@
 package io.github.rtheodoro4201.eventconnect.service;
 
 import io.github.rtheodoro4201.eventconnect.exception.EmailAlreadyExistsException;
+import io.github.rtheodoro4201.eventconnect.model.Event;
 import io.github.rtheodoro4201.eventconnect.model.User;
 import io.github.rtheodoro4201.eventconnect.repository.UserRepository;
+import io.github.rtheodoro4201.eventconnect.util.EntityUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -14,12 +16,13 @@ import java.util.Optional;
 public class UserService {
 
     private final UserRepository userRepository;
-
     private final PasswordEncoder passwordEncoder;
+    private final EntityUtils entityUtils;
 
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, EntityUtils entityUtils) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+        this.entityUtils = entityUtils;
     }
 
     public User registerUser(String name, String email, String password) {
@@ -73,17 +76,8 @@ public class UserService {
                 });
     }
 
-    private void checkUser(Long userId) {
-        Optional<User> userOptional = userRepository.findById(userId);
-
-        if (userOptional.isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found.");
-        }
-    }
-
     public void deleteUser(Long userId) {
-        checkUser(userId);
-
+        entityUtils.checkEntity(userId, User.class);
         userRepository.deleteById(userId);
     }
 }

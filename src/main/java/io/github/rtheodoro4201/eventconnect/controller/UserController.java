@@ -23,35 +23,34 @@ public class UserController {
 
     @PostMapping("/register")
     public ResponseEntity<User> register(@RequestBody UserRegistrationDTO registrationDTO) {
-        User registeredUser = userService.registerUser(registrationDTO.getName(), registrationDTO.getEmail(), registrationDTO.getPassword());
+        User registeredUser = userService.registerUser(registrationDTO);
         return new ResponseEntity<>(registeredUser, HttpStatus.CREATED);
     }
 
     @PostMapping("/login")
     public ResponseEntity<String> login(@RequestBody UserLoginDTO userLoginDTO) {
-        Optional<User> userOptional = userService.loginUser(userLoginDTO.getEmail(), userLoginDTO.getPassword());
-        if (userOptional.isPresent()) {
-            return ResponseEntity.ok("Successful login");
+        String jwtToken = userService.loginUser(userLoginDTO);
+        if (jwtToken != null) {
+            return ResponseEntity.ok(jwtToken);
         } else {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials.");
+            return new ResponseEntity<>("Authentication failed", HttpStatus.UNAUTHORIZED);
         }
     }
 
     @GetMapping("/get/{userId}")
     public ResponseEntity<User> getUser(@PathVariable Long userId) {
-        Optional<User> userOptional = userService.getUserById(userId);
+        Optional<User> userOptional = userService.findUserById(userId);
         return userOptional.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
     }
 
     @PutMapping("/update/{userId}")
     public ResponseEntity<User> updateUser(@PathVariable Long userId, @RequestBody UserUpdateDTO updateDTO) {
-        Optional<User> updatedUser = userService.updateUser(userId, updateDTO.getName(), updateDTO.getEmail(), updateDTO.getPassword());
+        Optional<User> updatedUser = userService.updateUser(updateDTO, userId);
         return updatedUser.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
     }
 
     @DeleteMapping("/delete/{userId}")
-    public ResponseEntity<Void> deleteUser(@PathVariable Long userId)
-    {
+    public ResponseEntity<Void> deleteUser(@PathVariable Long userId) {
         userService.deleteUser(userId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }

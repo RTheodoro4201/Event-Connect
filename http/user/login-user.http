@@ -1,7 +1,9 @@
-POST http://localhost:8080/api/users/login
+@baseurl = http://localhost:8080
+
+POST {{baseurl}}/api/users/login
 Content-Type: application/json
 
 {
-    "email": "teste@example.com",
+    "email": "teste@example1.com",
     "password": "senha123"
 }

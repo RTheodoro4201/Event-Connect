@@ -1,8 +1,10 @@
-POST http://localhost:8080/api/users/register
+@baseurl = http://localhost:8080
+
+POST {{baseurl}}/api/users/register
 Content-Type: application/json
 
 {
     "name": "NomeDeTeste",
-    "email": "teste@example.com",
+    "email": "teste@example1.com",
     "password": "senha123"
 }

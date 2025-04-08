@@ -1,1 +1,3 @@
-GET http://localhost:8080/api/users/get/2
+@baseurl = http://localhost:8080
+
+GET {{baseurl}}/api/users/get/2

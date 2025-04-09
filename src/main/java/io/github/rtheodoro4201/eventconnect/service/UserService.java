@@ -6,7 +6,6 @@ import io.github.rtheodoro4201.eventconnect.model.User;
 import io.github.rtheodoro4201.eventconnect.repository.UserRepository;
 import io.github.rtheodoro4201.eventconnect.security.ApplicationUserDetailsService;
 import io.github.rtheodoro4201.eventconnect.security.JwtUtil;
-import io.github.rtheodoro4201.eventconnect.util.EntityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -22,16 +21,14 @@ public class UserService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
-    private final EntityUtils entityUtils;
     private final AuthenticationManager authenticationManager;
     private final ApplicationUserDetailsService userDetailsService;
     private final JwtUtil jwtUtil;
     private static final Logger logger = LoggerFactory.getLogger(UserService.class);
 
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, EntityUtils entityUtils, AuthenticationManager authenticationManager, ApplicationUserDetailsService userDetailsService, JwtUtil jwtUtil) {
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, AuthenticationManager authenticationManager, ApplicationUserDetailsService userDetailsService, JwtUtil jwtUtil) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
-        this.entityUtils = entityUtils;
         this.authenticationManager = authenticationManager;
         this.userDetailsService = userDetailsService;
         this.jwtUtil = jwtUtil;
@@ -90,7 +87,6 @@ public class UserService {
     }
 
     public void deleteUser(Long userId) {
-        entityUtils.checkEntity(userId, User.class);
         userRepository.deleteById(userId);
     }
 

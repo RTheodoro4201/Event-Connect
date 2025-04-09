@@ -32,3 +32,6 @@ build/
 ### VS Code ###
 .vscode/
 /logs/event-connect.json
+
+### Environment Variables ###
+.env

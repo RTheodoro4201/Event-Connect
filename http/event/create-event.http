@@ -1,0 +1,16 @@
+@baseurl = http://localhost:8080
+@token = eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0ZUBleGFtcGxlLmNvbSIsImlhdCI6MTc0NDEyNzQ0OCwiZXhwIjoxNzQ0MjEzODQ4fQ.6lhllxd0eVsoXrwZ3-lkFVruR_bFttE_M8suCbd9uJY
+
+
+POST {{baseurl}}/api/events
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "title": "25th Annual Geek Conference",
+    "description": "A conference for geeks to learn and share their knowledge.",
+    "date": "2025-04-18",
+    "time": "14:00",
+    "location": "Ibirapuera",
+    "maxParticipants": 25
+}

@@ -3,7 +3,7 @@ package io.github.rtheodoro4201.eventconnect.model;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.Instant;
 
@@ -25,8 +25,18 @@ public class EventRegistration {
     @JoinColumn(name = "event_id", nullable = false)
     private Event event;
 
-    @ColumnDefault("CURRENT_TIMESTAMP")
-    @Column(name = "registered_at")
+    @CreationTimestamp
+    @Column(name = "registered_at", nullable = false)
     private Instant registeredAt;
+
+    public EventRegistration() {
+        this.id = new EventRegistrationId();
+    }
+
+    public EventRegistration(User user, Event event) {
+        this.id = new EventRegistrationId();
+        this.user = user;
+        this.event = event;
+    }
 
 }

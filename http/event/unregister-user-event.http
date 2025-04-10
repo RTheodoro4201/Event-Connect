@@ -1,0 +1,5 @@
+@baseurl = http://localhost:8080/api/events
+@token = eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0ZUBleGFtcGxlLmNvbSIsImlhdCI6MTc0NDIzOTk2NCwiZXhwIjoxNzQ0MzI2MzY0fQ.OxkxzCGb6VfixBEJQ7tihj3jswZUQfBX8Y9Z4SvUbpI
+
+DELETE {{baseurl}}/1/registrations
+Authorization: Bearer {{token}}

@@ -1,0 +1,4 @@
+@baseurl = http://localhost:8080
+@token = eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0ZUBleGFtcGxlLmNvbSIsImlhdCI6MTc0NDEyNzQ0OCwiZXhwIjoxNzQ0MjEzODQ4fQ.6lhllxd0eVsoXrwZ3-lkFVruR_bFttE_M8suCbd9uJY
+
+DELETE {{baseurl}}/api/events/1

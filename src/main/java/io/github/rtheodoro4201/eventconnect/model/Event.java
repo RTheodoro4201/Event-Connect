@@ -5,7 +5,8 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.Instant;
 import java.time.LocalDate;
@@ -18,12 +19,15 @@ import java.time.LocalTime;
 public class Event {
     @Id
     @Column(name = "id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    /* Ligação com tabela community
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "community_id", nullable = false)
     private Community community;
+    */
 
     @Size(max = 255)
     @NotNull
@@ -46,14 +50,18 @@ public class Event {
     @Column(name = "location")
     private String location;
 
+    @NotNull
+    @Column(name = "organizer_id", nullable = false)
+    private Long organizerId;
+
     @Column(name = "max_participants", columnDefinition = "int UNSIGNED")
     private Long maxParticipants;
 
-    @ColumnDefault("CURRENT_TIMESTAMP")
+    @CreationTimestamp
     @Column(name = "created_at")
     private Instant createdAt;
 
-    @ColumnDefault("CURRENT_TIMESTAMP")
+    @UpdateTimestamp
     @Column(name = "updated_at")
     private Instant updatedAt;
 

@@ -40,4 +40,11 @@ public class EventRegistrationId implements Serializable {
         return Objects.hash(eventId, userId);
     }
 
+    public EventRegistrationId() {
+    }
+
+    public EventRegistrationId(Long userId, Long eventId) {
+        this.userId = userId;
+        this.eventId = eventId;
+    }
 }

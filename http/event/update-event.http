@@ -1,0 +1,15 @@
+@baseurl = http://localhost:8080/api
+@token = eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0ZUBleGFtcGxlLmNvbSIsImlhdCI6MTc0NDEyNzQ0OCwiZXhwIjoxNzQ0MjEzODQ4fQ.6lhllxd0eVsoXrwZ3-lkFVruR_bFttE_M8suCbd9uJY
+
+PUT {{baseurl}}/events/1
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "title": "24th Annual Geek Conference",
+    "description": "A conference for geeks to learn and share their knowledge.",
+    "date": "2024-04-18",
+    "time": "13:30",
+    "location": "Ibirapuera",
+    "maxParticipants": 30
+}
